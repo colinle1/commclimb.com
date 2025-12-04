@@ -339,10 +339,8 @@ export const App: React.FC = () => {
       transcript={currentProject?.transcript || []}
     />
   )}
-</div>  {/* close content wrapper */}
-
-</div>    {/* close right panel (flex-col wrapper) */}
-
-</div>    {/* close flex-1 flex overflow-hidden wrapper */}
-</div>    {/* close outermost h-screen wrapper */}
-);  // <- closes return()
+</div>
+</div>
+</div>
+</div>
+);
