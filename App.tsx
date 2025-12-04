@@ -299,43 +299,48 @@ export const App: React.FC = () => {
             </button>
           </div>
 
-          {/* Tab Content */}
-          <div className="flex-1 overflow-hidden p-4">
-            {activeTab === 'original' && (
-              <NoteList 
-                type={NoteType.ORIGINAL}
-                notes={notes.filter(n => n.type === NoteType.ORIGINAL)}
-                currentTime={currentTime}
-                onAddNote={(content, time) => addNote(content, time, NoteType.ORIGINAL)}
-                onJumpToTime={jumpToTime}
-                onDeleteNote={deleteNote}
-              />
-            )}
-            {activeTab === 'visual' && (
-              <NoteList 
-                type={NoteType.VIDEO}
-                notes={notes.filter(n => n.type === NoteType.VIDEO)}
-                currentTime={currentTime}
-                onAddNote={(content, time) => addNote(content, time, NoteType.VIDEO)}
-                onJumpToTime={jumpToTime}
-                onDeleteNote={deleteNote}
-              />
-            )}
-            {activeTab === 'audio' && (
-              <NoteList 
-                type={NoteType.AUDIO}
-                notes={notes.filter(n => n.type === NoteType.AUDIO)}
-                currentTime={currentTime}
-                onAddNote={(content, time) => addNote(content, time, NoteType.AUDIO)}
-                onJumpToTime={jumpToTime}
-                onDeleteNote={deleteNote}
-              />
-            )}
-            {activeTab === 'speed' && (
-              <SpeakingSpeedView
-                transcript={currentProject?.transcript || []}
-              />
-            )}
-          </div>
-    );
-  };
+{/* Tab Content */}
+<div className="flex-1 overflow-hidden p-4">
+  {activeTab === 'original' && (
+    <NoteList 
+      type={NoteType.ORIGINAL}
+      notes={notes.filter(n => n.type === NoteType.ORIGINAL)}
+      currentTime={currentTime}
+      onAddNote={(content, time) => addNote(content, time, NoteType.ORIGINAL)}
+      onJumpToTime={jumpToTime}
+      onDeleteNote={deleteNote}
+    />
+  )}
+
+  {activeTab === 'visual' && (
+    <NoteList 
+      type={NoteType.VIDEO}
+      notes={notes.filter(n => n.type === NoteType.VIDEO)}
+      currentTime={currentTime}
+      onAddNote={(content, time) => addNote(content, time, NoteType.VIDEO)}
+      onJumpToTime={jumpToTime}
+      onDeleteNote={deleteNote}
+    />
+  )}
+
+  {activeTab === 'audio' && (
+    <NoteList 
+      type={NoteType.AUDIO}
+      notes={notes.filter(n => n.type === NoteType.AUDIO)}
+      currentTime={currentTime}
+      onAddNote={(content, time) => addNote(content, time, NoteType.AUDIO)}
+      onJumpToTime={jumpToTime}
+      onDeleteNote={deleteNote}
+    />
+  )}
+
+  {activeTab === 'speed' && (
+    <SpeakingSpeedView
+      transcript={currentProject?.transcript || []}
+    />
+  )}
+</div>
+
+</div>   {/* <-- REQUIRED extra closing div */}
+);
+};
