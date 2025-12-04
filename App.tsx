@@ -299,48 +299,52 @@ export const App: React.FC = () => {
             </button>
           </div>
 
-{/* Tab Content */}
-<div className="flex-1 overflow-hidden p-4">
-  {activeTab === 'original' && (
-    <NoteList 
-      type={NoteType.ORIGINAL}
-      notes={notes.filter(n => n.type === NoteType.ORIGINAL)}
-      currentTime={currentTime}
-      onAddNote={(content, time) => addNote(content, time, NoteType.ORIGINAL)}
-      onJumpToTime={jumpToTime}
-      onDeleteNote={deleteNote}
-    />
-  )}
+      {/* Tab Content */}
+      <div className="flex-1 overflow-hidden p-4">
+        {activeTab === 'original' && (
+          <NoteList
+            type={NoteType.ORIGINAL}
+            notes={notes.filter(n => n.type === NoteType.ORIGINAL)}
+            currentTime={currentTime}
+            onAddNote={(content, time) => addNote(content, time, NoteType.ORIGINAL)}
+            onJumpToTime={jumpToTime}
+            onDeleteNote={deleteNote}
+          />
+        )}
 
-  {activeTab === 'visual' && (
-    <NoteList 
-      type={NoteType.VIDEO}
-      notes={notes.filter(n => n.type === NoteType.VIDEO)}
-      currentTime={currentTime}
-      onAddNote={(content, time) => addNote(content, time, NoteType.VIDEO)}
-      onJumpToTime={jumpToTime}
-      onDeleteNote={deleteNote}
-    />
-  )}
+        {activeTab === 'visual' && (
+          <NoteList
+            type={NoteType.VIDEO}
+            notes={notes.filter(n => n.type === NoteType.VIDEO)}
+            currentTime={currentTime}
+            onAddNote={(content, time) => addNote(content, time, NoteType.VIDEO)}
+            onJumpToTime={jumpToTime}
+            onDeleteNote={deleteNote}
+          />
+        )}
 
-  {activeTab === 'audio' && (
-    <NoteList 
-      type={NoteType.AUDIO}
-      notes={notes.filter(n => n.type === NoteType.AUDIO)}
-      currentTime={currentTime}
-      onAddNote={(content, time) => addNote(content, time, NoteType.AUDIO)}
-      onJumpToTime={jumpToTime}
-      onDeleteNote={deleteNote}
-    />
-  )}
+        {activeTab === 'audio' && (
+          <NoteList
+            type={NoteType.AUDIO}
+            notes={notes.filter(n => n.type === NoteType.AUDIO)}
+            currentTime={currentTime}
+            onAddNote={(content, time) => addNote(content, time, NoteType.AUDIO)}
+            onJumpToTime={jumpToTime}
+            onDeleteNote={deleteNote}
+          />
+        )}
 
-  {activeTab === 'speed' && (
-    <SpeakingSpeedView
-      transcript={currentProject?.transcript || []}
-    />
-  )}
-</div>
+        {activeTab === 'speed' && (
+          <SpeakingSpeedView
+            transcript={currentProject?.transcript || []}
+          />
+        )}
+      </div>  {/* close content wrapper */}
 
-</div>   {/* <-- REQUIRED extra closing div */}
-);
+    </div>    {/* close right panel (flex-col wrapper) */}
+
+  </div>      {/* close the flex-1 flex overflow-hidden wrapper */}
+
+</div>        {/* close the outermost h-screen wrapper */}
+  );
 };
