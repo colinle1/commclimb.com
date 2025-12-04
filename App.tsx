@@ -301,7 +301,7 @@ export const App: React.FC = () => {
 
           {/* Tab Content */}
           <div className="flex-1 overflow-hidden p-4">
-             {activeTab === 'original' && (
+            {activeTab === 'original' && (
               <NoteList 
                 type={NoteType.ORIGINAL}
                 notes={notes.filter(n => n.type === NoteType.ORIGINAL)}
@@ -337,7 +337,5 @@ export const App: React.FC = () => {
               />
             )}
           </div>
-        </div>
-      </div>
     );
   };
