@@ -234,113 +234,121 @@ export const App: React.FC = () => {
     );
   }
 
-  // Project View
-  return (
-    <div className="flex flex-col h-screen overflow-hidden">
-      <header className="bg-secondary border-b border-gray-700 h-14 flex items-center px-4 justify-between shrink-0">
-        <div className="flex items-center gap-4">
-          <button onClick={() => setView('dashboard')} className="text-gray-400 hover:text-white">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
-          </button>
-          <h1 className="font-bold text-lg truncate max-w-xs">{currentProject?.name}</h1>
-        </div>
-      </header>
+// Project View
+return (
+  <div className="flex flex-col h-screen overflow-hidden"> {/* outermost wrapper */}
+    
+    {/* Header */}
+    <header className="bg-secondary border-b border-gray-700 h-14 flex items-center px-4 justify-between shrink-0">
+      <div className="flex items-center gap-4">
+        <button onClick={() => setView('dashboard')} className="text-gray-400 hover:text-white">
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+        </button>
+        <h1 className="font-bold text-lg truncate max-w-xs">{currentProject?.name}</h1>
+      </div>
+    </header>
 
-      <div className="flex-1 flex overflow-hidden">
-        {/* Left: Video Player - Hidden when activeTab is Speed */}
-        <div className={`w-2/3 p-6 bg-black flex flex-col items-center justify-center relative ${activeTab === 'speed' ? 'hidden' : 'flex'}`}>
-          {!currentProject?.videoUrl ? (
-            <div className="text-center text-red-400">
-              <p>Video source expired.</p>
-              <p className="text-sm text-gray-500">Session data lost on refresh.</p>
-              <Button size="sm" onClick={() => setView('dashboard')} className="mt-4">Back to Dashboard</Button>
-            </div>
-          ) : (
-            <div className="w-full max-w-4xl">
-              <VideoPlayer 
-                ref={videoRef}
-                src={currentProject.videoUrl} 
-                onTimeUpdate={setCurrentTime}
-                overrideDuration={currentProject.duration}
-                mode={activeTab === 'audio' ? 'audio' : 'video'}
-                muted={activeTab === 'visual'} // Mute only in Visual mode
-              />
-            </div>
-          )}
-        </div>
-
-        {/* Right: Analysis Tools - Expands when Speed is active */}
-        <div className={`border-l border-gray-700 bg-secondary/10 flex flex-col ${activeTab === 'speed' ? 'w-full' : 'w-1/3'}`}>
-          {/* Tabs */}
-          <div className="flex border-b border-gray-700">
-            <button 
-              onClick={() => setActiveTab('original')}
-              className={`flex-1 py-3 text-sm font-medium transition-colors ${activeTab === 'original' ? 'text-accent border-b-2 border-accent bg-secondary/50' : 'text-gray-400 hover:text-white'}`}
-            >
-              Original
-            </button>
-            <button 
-              onClick={() => setActiveTab('visual')}
-              className={`flex-1 py-3 text-sm font-medium transition-colors ${activeTab === 'visual' ? 'text-accent border-b-2 border-accent bg-secondary/50' : 'text-gray-400 hover:text-white'}`}
-            >
-              Visual
-            </button>
-            <button 
-              onClick={() => setActiveTab('audio')}
-              className={`flex-1 py-3 text-sm font-medium transition-colors ${activeTab === 'audio' ? 'text-accent border-b-2 border-accent bg-secondary/50' : 'text-gray-400 hover:text-white'}`}
-            >
-              Audio
-            </button>
-            <button 
-              onClick={() => setActiveTab('speed')}
-              className={`flex-1 py-3 text-sm font-medium transition-colors ${activeTab === 'speed' ? 'text-accent border-b-2 border-accent bg-secondary/50' : 'text-gray-400 hover:text-white'}`}
-            >
-              Speaking Speed
-            </button>
+    {/* Main content */}
+    <div className="flex-1 flex overflow-hidden"> {/* flex wrapper */}
+      
+      {/* Left: Video Player */}
+      <div className={`w-2/3 p-6 bg-black flex flex-col items-center justify-center relative ${activeTab === 'speed' ? 'hidden' : 'flex'}`}>
+        {!currentProject?.videoUrl ? (
+          <div className="text-center text-red-400">
+            <p>Video source expired.</p>
+            <p className="text-sm text-gray-500">Session data lost on refresh.</p>
+            <Button size="sm" onClick={() => setView('dashboard')} className="mt-4">Back to Dashboard</Button>
           </div>
+        ) : (
+          <div className="w-full max-w-4xl">
+            <VideoPlayer 
+              ref={videoRef}
+              src={currentProject.videoUrl} 
+              onTimeUpdate={setCurrentTime}
+              overrideDuration={currentProject.duration}
+              mode={activeTab === 'audio' ? 'audio' : 'video'}
+              muted={activeTab === 'visual'} // Mute only in Visual mode
+            />
+          </div>
+        )}
+      </div> {/* close left video panel */}
 
-{/* Tab Content */}
-<div className="flex-1 overflow-hidden p-4">
-  {activeTab === 'original' && (
-    <NoteList
-      type={NoteType.ORIGINAL}
-      notes={notes.filter(n => n.type === NoteType.ORIGINAL)}
-      currentTime={currentTime}
-      onAddNote={(content, time) => addNote(content, time, NoteType.ORIGINAL)}
-      onJumpToTime={jumpToTime}
-      onDeleteNote={deleteNote}
-    />
-  )}
+      {/* Right: Analysis Tools */}
+      <div className={`border-l border-gray-700 bg-secondary/10 flex flex-col ${activeTab === 'speed' ? 'w-full' : 'w-1/3'}`}>
+        
+        {/* Tabs */}
+        <div className="flex border-b border-gray-700">
+          <button 
+            onClick={() => setActiveTab('original')}
+            className={`flex-1 py-3 text-sm font-medium transition-colors ${activeTab === 'original' ? 'text-accent border-b-2 border-accent bg-secondary/50' : 'text-gray-400 hover:text-white'}`}
+          >
+            Original
+          </button>
+          <button 
+            onClick={() => setActiveTab('visual')}
+            className={`flex-1 py-3 text-sm font-medium transition-colors ${activeTab === 'visual' ? 'text-accent border-b-2 border-accent bg-secondary/50' : 'text-gray-400 hover:text-white'}`}
+          >
+            Visual
+          </button>
+          <button 
+            onClick={() => setActiveTab('audio')}
+            className={`flex-1 py-3 text-sm font-medium transition-colors ${activeTab === 'audio' ? 'text-accent border-b-2 border-accent bg-secondary/50' : 'text-gray-400 hover:text-white'}`}
+          >
+            Audio
+          </button>
+          <button 
+            onClick={() => setActiveTab('speed')}
+            className={`flex-1 py-3 text-sm font-medium transition-colors ${activeTab === 'speed' ? 'text-accent border-b-2 border-accent bg-secondary/50' : 'text-gray-400 hover:text-white'}`}
+          >
+            Speaking Speed
+          </button>
+        </div> {/* close tabs row */}
 
-  {activeTab === 'visual' && (
-    <NoteList
-      type={NoteType.VIDEO}
-      notes={notes.filter(n => n.type === NoteType.VIDEO)}
-      currentTime={currentTime}
-      onAddNote={(content, time) => addNote(content, time, NoteType.VIDEO)}
-      onJumpToTime={jumpToTime}
-      onDeleteNote={deleteNote}
-    />
-  )}
+        {/* Tab Content */}
+        <div className="flex-1 overflow-hidden p-4">
+          {activeTab === 'original' && (
+            <NoteList
+              type={NoteType.ORIGINAL}
+              notes={notes.filter(n => n.type === NoteType.ORIGINAL)}
+              currentTime={currentTime}
+              onAddNote={(content, time) => addNote(content, time, NoteType.ORIGINAL)}
+              onJumpToTime={jumpToTime}
+              onDeleteNote={deleteNote}
+            />
+          )}
 
-  {activeTab === 'audio' && (
-    <NoteList
-      type={NoteType.AUDIO}
-      notes={notes.filter(n => n.type === NoteType.AUDIO)}
-      currentTime={currentTime}
-      onAddNote={(content, time) => addNote(content, time, NoteType.AUDIO)}
-      onJumpToTime={jumpToTime}
-      onDeleteNote={deleteNote}
-    />
-  )}
+          {activeTab === 'visual' && (
+            <NoteList
+              type={NoteType.VIDEO}
+              notes={notes.filter(n => n.type === NoteType.VIDEO)}
+              currentTime={currentTime}
+              onAddNote={(content, time) => addNote(content, time, NoteType.VIDEO)}
+              onJumpToTime={jumpToTime}
+              onDeleteNote={deleteNote}
+            />
+          )}
 
-  {activeTab === 'speed' && (
-    <SpeakingSpeedView
-      transcript={currentProject?.transcript || []}
-    />
-  )}
-</div>
-</div>
-</div>
-</div>
-);
+          {activeTab === 'audio' && (
+            <NoteList
+              type={NoteType.AUDIO}
+              notes={notes.filter(n => n.type === NoteType.AUDIO)}
+              currentTime={currentTime}
+              onAddNote={(content, time) => addNote(content, time, NoteType.AUDIO)}
+              onJumpToTime={jumpToTime}
+              onDeleteNote={deleteNote}
+            />
+          )}
+
+          {activeTab === 'speed' && (
+            <SpeakingSpeedView transcript={currentProject?.transcript || []} />
+          )}
+        </div> {/* close tab content */}
+
+      </div> {/* close right panel */}
+
+    </div> {/* close flex wrapper */}
+
+  </div> {/* close outermost wrapper */}
+);  // return
