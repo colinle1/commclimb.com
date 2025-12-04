@@ -344,6 +344,5 @@ export const App: React.FC = () => {
 </div>    {/* close right panel (flex-col wrapper) */}
 
 </div>    {/* close flex-1 flex overflow-hidden wrapper */}
-
 </div>    {/* close outermost h-screen wrapper */}
-);        {/* <- this closes return(...) */}
+);  // <- closes return()
